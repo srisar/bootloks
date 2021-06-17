@@ -1,0 +1,13 @@
+{
+  "name": "bsdialog",
+  "version": "1.0.0",
+  "description": "Bootstrap based dialog boxes for easy popups and inputs",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "Srisaravana Manicaraja",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}
