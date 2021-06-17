@@ -8,7 +8,7 @@ It automatically handles DOM manipulation and provides callbacks for capturing u
 + Error dialog
 
 ## Prompts
-+ text prompt
-+ multi-line text prompt
-+ date prompt
-+ number prompt
++ Text prompt
++ Multi-line text prompt
++ Date prompt
++ Number prompt
