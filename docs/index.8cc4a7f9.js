@@ -479,14 +479,6 @@ document.getElementById("btnErrorDialog").addEventListener("click", () => {
     alert("The dialog box was closed");
   });
 });
-document.getElementById("btnErrorDialog").addEventListener("click", () => {
-  _srcBsDialogs.errorDialog({
-    message: "Task failed. I am sorry I have let you down.",
-    title: "Oopsies... Can do nothin'"
-  }, function () {
-    alert("The dialog box was closed");
-  });
-});
 document.getElementById("btnTextInputBasic").addEventListener("click", () => {
   _srcBsDialogs.textPrompt({
     message: "Care to share your favorite color? Mine is <span class='text-danger'>red.</span>"
