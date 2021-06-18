@@ -10,8 +10,9 @@ demo site is available here https://srisar.github.io/bs-dialog
 
 ## Dialogs
 
-+ Success dialog
-+ Error dialog
++ Information dialog (bootstrap primary color)
++ Success dialog (bootstrap success color)
++ Error dialog (bootstrap danger color)
 
 ## Prompts
 
