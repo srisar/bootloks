@@ -120,7 +120,7 @@ storybook-static
 # TernJS port file
 .tern-port
 
-# Stores VSCode versions used for testing VSCode extensions
+# Stores VSCode versions used for docs_src VSCode extensions
 .vscode-test
 
 # Temporary folders
@@ -132,4 +132,4 @@ temp/
 /.idea/jsLibraryMappings.xml
 /.idea/bsdialog.iml
 /.idea/
-/testing/dist/
+/docs_src/dist/
