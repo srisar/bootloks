@@ -1,10 +1,10 @@
-# BS-DIALOG
+# BS-DIALOGS
 
 A small library to create modal windows for notification and inputs using Bootstrap 5 modal. It automatically handles
 DOM manipulation and provides callbacks for capturing user events.
 
-**NOTE: This library uses Bootstrap 5's modal windows, which doesn't require jQuery, 
-but Bootstrap's js file must be loaded before loading bs-dialog.** 
+**NOTE: This library uses Bootstrap 5's modal windows, which doesn't require jQuery, but Bootstrap's js file must be
+loaded before loading bs-dialog.**
 
 ## Dialogs
 
@@ -17,6 +17,17 @@ but Bootstrap's js file must be loaded before loading bs-dialog.**
 + Multi-line text prompt
 + Date prompt
 + Number prompt
+
+## How to use
+
+bs-dialogs can be imported using ES6 import syntax
+
+```javascript
+import {successDialog, errorDialog} from "bs-dialog";
+
+/* or import everything at once */
+import * as bsDialog from "bs-dialog";
+```
 
 ## Examples of alert dialog boxes
 
