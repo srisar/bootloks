@@ -140,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"3BxSs":[function(require,module,exports) {
+})({"NdG1R":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d751713988987e9331980363e24189ce";
-module.bundle.HMR_BUNDLE_ID = "95eff9010d83677ffb31d3c6ef4da000";
+module.bundle.HMR_BUNDLE_ID = "3150dcae12e5ccdc76d7c4d48cc4a7f9";
 // @flow
 /*global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE*/
 /*::
@@ -441,18 +441,122 @@ id) /*: string*/
   acceptedAssets[id] = true;
 }
 
-},{}],"oibCi":[function(require,module,exports) {
-var _distBsDialogsMin = require("../dist/bs-dialogs.min");
+},{}],"7fPzZ":[function(require,module,exports) {
+var _srcBsDialogs = require("../../src/bs-dialogs");
+let output = document.getElementById("output");
+document.getElementById("btnInfoDialog").addEventListener("click", () => {
+  _srcBsDialogs.infoDialog({
+    message: "This is the message"
+  });
+});
+document.getElementById("btnInfoDialogMore").addEventListener("click", () => {
+  _srcBsDialogs.infoDialog({
+    message: "This is the message",
+    title: "Custom title comes here 🚀"
+  });
+});
+document.getElementById("btnInfoDialogCallback").addEventListener("click", () => {
+  _srcBsDialogs.infoDialog({
+    message: "This is the message",
+    title: "Custom title comes here 🚀"
+  }, function () {
+    alert("The dialog box was closed");
+  });
+});
 document.getElementById("btnSuccessDialog").addEventListener("click", () => {
-  _distBsDialogsMin.successDialog({
-    message: "hello",
-    title: "title..."
+  _srcBsDialogs.successDialog({
+    message: "Task successfully completed. <br> <span class='fw-bold'>You can now relax.</span>",
+    title: "🚀 All done sire"
+  }, function () {
+    alert("The dialog box was closed");
+  });
+});
+document.getElementById("btnErrorDialog").addEventListener("click", () => {
+  _srcBsDialogs.errorDialog({
+    message: "Task failed. I am sorry I have let you down.",
+    title: "Oopsies... Can do nothin'"
+  }, function () {
+    alert("The dialog box was closed");
+  });
+});
+document.getElementById("btnErrorDialog").addEventListener("click", () => {
+  _srcBsDialogs.errorDialog({
+    message: "Task failed. I am sorry I have let you down.",
+    title: "Oopsies... Can do nothin'"
+  }, function () {
+    alert("The dialog box was closed");
+  });
+});
+document.getElementById("btnTextInputBasic").addEventListener("click", () => {
+  _srcBsDialogs.textPrompt({
+    message: "Care to share your favorite color? Mine is <span class='text-danger'>red.</span>"
+  }, function (data) {
+    /*make sure to sanitize the input data*/
+    let value = data.trim();
+    if (value !== "") {
+      output.innerText = "You have typed " + value + ". Are you sure that is a color?";
+    }
+  });
+});
+document.getElementById("btnTextInput").addEventListener("click", () => {
+  _srcBsDialogs.textPrompt({
+    message: "What is your favorite color?",
+    title: "Color please... ⛄"
+  }, function (data) {
+    /*make sure to sanitize the input data*/
+    let value = data.trim();
+    if (value !== "") {
+      output.innerText = "You have typed " + value;
+    }
+  }, function () {
+    output.innerText = "You cancelled the prompt 😢";
+  });
+});
+document.getElementById("btnMultiTextInput").addEventListener("click", () => {
+  _srcBsDialogs.textAreaPrompt({
+    message: "Can you write something in two lines?",
+    title: "Haiku, Might it be?"
+  }, function (data) {
+    /*make sure to sanitize the input data*/
+    let value = data.trim();
+    if (value !== "") {
+      output.innerHTML = value;
+    }
+  }, function () {
+    output.innerText = "You cancelled the prompt 😢";
+  });
+});
+document.getElementById("btnNumberInput").addEventListener("click", () => {
+  _srcBsDialogs.numberPrompt({
+    message: "What is the meaning of life?",
+    title: "Do you need a guide to galaxy?"
+  }, function (data) {
+    /*make sure to sanitize the input data*/
+    let value = parseInt(data);
+    if (!isNaN(value)) {
+      if (value === 42) output.innerText = "Nice."; else output.innerText = "You certainly need a guide to the galaxy";
+    }
+  }, function () {
+    output.innerText = "You cancelled the prompt 😢";
+  });
+});
+document.getElementById("btnDateInput").addEventListener("click", () => {
+  _srcBsDialogs.datePrompt({
+    message: "Choose a random date",
+    title: "Date mystery"
+  }, function (data) {
+    output.innerText = data;
+  }, function () {
+    output.innerText = "You cancelled the prompt 😢";
   });
 });
 
-},{"../dist/bs-dialogs.min":"7603j"}],"7603j":[function(require,module,exports) {
+},{"../../src/bs-dialogs":"3YdnL"}],"3YdnL":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "infoDialog", function () {
+  return infoDialog;
+});
 _parcelHelpers.export(exports, "successDialog", function () {
   return successDialog;
 });
@@ -471,97 +575,148 @@ _parcelHelpers.export(exports, "datePrompt", function () {
 _parcelHelpers.export(exports, "numberPrompt", function () {
   return numberPrompt;
 });
-function generateModal(t, e, o, s) {
-  document.body.appendChild(t);
-  let a = new bootstrap.Modal(document.getElementById(e.id), {
+/**
+* Generates the modal window with given data and callbacks
+* @param element
+* @param params
+* @param okButtonCallback
+* @param cancelButtonCallback
+*/
+function generateModal(element, params, okButtonCallback, cancelButtonCallback) {
+  document.body.appendChild(element);
+  let myPromptDialog = new bootstrap.Modal(document.getElementById(params.id), {
     backdrop: "static"
   });
-  (a.show(), document.addEventListener("click", t => {
-    t.target && "ss-button-prompt-ok" === t.target.id && (t = document.getElementById("ss-prompt-input-value").value, o(t), a.hide());
-  }), document.addEventListener("click", t => {
-    t.target && "ss-button-prompt-cancel" === t.target.id && (void 0 !== s && s(), a.hide());
-  }), document.getElementById(e.id).addEventListener("hide.bs.modal", function () {
+  myPromptDialog.show();
+  document.addEventListener("click", e => {
+    if (e.target && e.target.id === "ss-button-prompt-ok") {
+      let value = document.getElementById("ss-prompt-input-value").value;
+      okButtonCallback(value);
+      myPromptDialog.hide();
+    }
+  });
+  document.addEventListener("click", e => {
+    if (e.target && e.target.id === "ss-button-prompt-cancel") {
+      if (cancelButtonCallback !== undefined) {
+        cancelButtonCallback();
+      }
+      myPromptDialog.hide();
+    }
+  });
+  document.getElementById(params.id).addEventListener("hide.bs.modal", function () {
     document.getElementById("ss-modal-dialog-container").remove();
-  }));
+  });
 }
+/*------------------------------------------------------------------------------------------------------------------------*/
 class AlertDialog {
-  constructor(t = {
+  constructor(params = {
     message: "",
     title: "",
     id: "",
     borderClass: "",
     closeButtonText: ""
-  }, e) {
-    (t.id = t.id ?? "ss-dialog-box-modal", t.title = t.title ?? "Alert", t.message = t.message ?? "", t.borderClass = t.borderClass ?? "border-primary", t.closeButtonText = t.closeButtonText ?? "Close", t.titleTextColor = t.titleTextColor ?? "text-primary");
-    let o = document.createElement("div");
-    (o.id = "ss-modal-dialog-container", o.innerHTML = `<div class="modal fade" id="${t.id}" tabindex="-1" aria-labelledby="" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >` + '<div class="modal-dialog">' + `<div class="modal-content border ${t.borderClass}">` + '<div class="modal-header">' + `<p class="modal-title text-uppercase fw-bold ${t.titleTextColor}">${t.title}</p>` + '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>' + `<div class="modal-body">${t.message}</div>` + '<div class="modal-footer">' + `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${t.closeButtonText}</button>` + "</div></div></div></div>", document.body.appendChild(o));
-    let s = new bootstrap.Modal(document.getElementById(t.id), {
-      backdrop: !0
+  }, closeCallback) {
+    params.id = params.id ?? "ss-dialog-box-modal";
+    params.title = params.title ?? "Alert";
+    params.message = params.message ?? "";
+    params.borderClass = params.borderClass ?? "border-primary";
+    params.closeButtonText = params.closeButtonText ?? "Close";
+    params.titleTextColor = params.titleTextColor ?? "text-primary";
+    let element = document.createElement("div");
+    element.id = "ss-modal-dialog-container";
+    element.innerHTML = `<div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >` + `<div class="modal-dialog">` + `<div class="modal-content border ${params.borderClass}">` + `<div class="modal-header">` + `<p class="modal-title text-uppercase fw-bold ${params.titleTextColor}">${params.title}</p>` + `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>` + `</div>` + `<div class="modal-body">${params.message}</div>` + `<div class="modal-footer">` + `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${params.closeButtonText}</button>` + `</div>` + `</div>` + `</div>` + `</div>`;
+    document.body.appendChild(element);
+    let myAlertModal = new bootstrap.Modal(document.getElementById(params.id), {
+      backdrop: true
     });
-    (s.show(), document.getElementById(t.id).addEventListener("hide.bs.modal", function () {
-      (document.getElementById("ss-modal-dialog-container").remove(), void 0 !== e && e());
-    }));
+    myAlertModal.show();
+    document.getElementById(params.id).addEventListener("hide.bs.modal", function () {
+      document.getElementById("ss-modal-dialog-container").remove();
+      if (closeCallback !== undefined) {
+        closeCallback();
+      }
+    });
   }
 }
 class CustomPrompt {
-  constructor(t = {
+  constructor(params = {
     message: "",
     title: "",
     id: "",
     fieldType: ""
-  }, e, o) {
-    (t.id = t.id ?? "ss-prompt-box-modal", t.title = t.title ?? "Prompt", t.message = t.message ?? "", t.fieldType = t.fieldType ?? "text");
-    let s = document.createElement("div");
-    s.id = "ss-modal-dialog-container";
-    let a = "<input type='text' class='form-control' id='ss-prompt-input-value'>";
-    ("textarea" === t.fieldType && (a = "<textarea rows='5' class='form-control' id='ss-prompt-input-value'></textarea>"), "date" === t.fieldType && (a = "<input type='date' class='form-control' id='ss-prompt-input-value'>"), "number" === t.fieldType && (a = "<input type='number' class='form-control' id='ss-prompt-input-value'>"), s.innerHTML = `<div class="modal fade" id="${t.id}" tabindex="-1" aria-labelledby="" aria-hidden="true">` + '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">' + `<p class="modal-title text-uppercase fw-bold">${t.title}</p>` + '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body">' + `${t.message}` + `${a}` + '</div> <div class="modal-footer"><button type="button" class="btn btn-success" id="ss-button-prompt-ok">Ok</button><button type="button" class="btn btn-secondary" id="ss-button-prompt-cancel" data-bs-dismiss="modal">Cancel</button></div></div></div></div>', generateModal(s, t, e, o));
+  }, okButtonCallback, cancelButtonCallback) {
+    params.id = params.id ?? "ss-prompt-box-modal";
+    params.title = params.title ?? "Prompt";
+    params.message = params.message ?? "";
+    params.fieldType = params.fieldType ?? "text";
+    let element = document.createElement("div");
+    element.id = "ss-modal-dialog-container";
+    /*types of fields*/
+    let inputField = "<input type='text' class='form-control' id='ss-prompt-input-value'>";
+    if (params.fieldType === "textarea") inputField = "<textarea rows='5' class='form-control' id='ss-prompt-input-value'></textarea>";
+    if (params.fieldType === "date") inputField = "<input type='date' class='form-control' id='ss-prompt-input-value'>";
+    if (params.fieldType === "number") inputField = "<input type='number' class='form-control' id='ss-prompt-input-value'>";
+    element.innerHTML = `<div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true">` + `<div class="modal-dialog">` + `<div class="modal-content">` + `<div class="modal-header">` + `<p class="modal-title text-uppercase fw-bold">${params.title}</p>` + `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>` + `</div>` + `<div class="modal-body">` + `${params.message}` + `${inputField}` + `</div>` + ` <div class="modal-footer">` + `<button type="button" class="btn btn-success" id="ss-button-prompt-ok">Ok</button>` + `<button type="button" class="btn btn-secondary" id="ss-button-prompt-cancel" data-bs-dismiss="modal">Cancel</button>` + `</div>` + `</div>` + `</div>` + `</div>`;
+    generateModal(element, params, okButtonCallback, cancelButtonCallback);
   }
 }
-function successDialog(t = {}, e) {
-  (t.title = t.title ?? "Success", new AlertDialog({
-    message: t.message,
-    title: t.title,
+function infoDialog(params = {}, closeCallback) {
+  params.title = params.title ?? "Information";
+  new AlertDialog({
+    message: params.message,
+    title: params.title,
+    borderClass: "border-primary",
+    closeButtonText: "Ok",
+    titleTextColor: "text-primary"
+  }, closeCallback);
+}
+function successDialog(params = {}, closeCallback) {
+  params.title = params.title ?? "Success";
+  new AlertDialog({
+    message: params.message,
+    title: params.title,
     borderClass: "border-success",
     closeButtonText: "Ok",
     titleTextColor: "text-success"
-  }, e));
+  }, closeCallback);
 }
-function errorDialog(t = {}, e) {
-  (t.title = t.title ?? "Error", new AlertDialog({
-    message: t.message,
-    title: t.title,
+function errorDialog(params = {}, closeCallback) {
+  params.title = params.title ?? "Error";
+  new AlertDialog({
+    message: params.message,
+    title: params.title,
     borderClass: "border-danger",
     closeButtonText: "Ok",
     titleTextColor: "text-danger"
-  }, e));
+  }, closeCallback);
 }
-function textPrompt(t = {}, e, o) {
+function textPrompt(params = {}, okCallback, cancelCallback) {
   new CustomPrompt({
-    message: t.message,
-    title: t.title,
+    message: params.message,
+    title: params.title,
     fieldType: "text"
-  }, e, o);
+  }, okCallback, cancelCallback);
 }
-function textAreaPrompt(t = {}, e, o) {
+function textAreaPrompt(params = {}, okCallback, cancelCallback) {
   new CustomPrompt({
-    message: t.message,
-    title: t.title,
+    message: params.message,
+    title: params.title,
     fieldType: "textarea"
-  }, e, o);
+  }, okCallback, cancelCallback);
 }
-function datePrompt(t = {}, e, o) {
+function datePrompt(params = {}, okCallback, cancelCallback) {
   new CustomPrompt({
-    message: t.message,
-    title: t.title,
+    message: params.message,
+    title: params.title,
     fieldType: "date"
-  }, e, o);
+  }, okCallback, cancelCallback);
 }
-function numberPrompt(t = {}, e, o) {
+function numberPrompt(params = {}, okCallback, cancelCallback) {
   new CustomPrompt({
-    message: t.message,
-    title: t.title,
+    message: params.message,
+    title: params.title,
     fieldType: "number"
-  }, e, o);
+  }, okCallback, cancelCallback);
 }
 
 },{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {
@@ -606,6 +761,6 @@ exports.export = function (dest, destName, get) {
     get: get
   });
 };
-},{}]},["3BxSs","oibCi"], "oibCi", "parcelRequire9eda")
+},{}]},["NdG1R","7fPzZ"], "7fPzZ", "parcelRequire9eda")
 
-//# sourceMappingURL=index.ef4da000.js.map
+//# sourceMappingURL=index.8cc4a7f9.js.map

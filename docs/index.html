@@ -5,40 +5,78 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-
+    <title>BS-Dialogs</title>
+    <style>body {
+            font-family: 'Sen', sans-serif;
+        }
+</style>
 </head>
 <body>
 
-<div class="container">
+<div class="container my-5">
     <div class="row">
         <div class="col">
 
-            <h1 class="text-center">Hello, world!</h1>
+            <h1 class="text-center">BS-DIALOGS Demo</h1>
 
-            <div>
-                <h3>Testing messagebox fly outs</h3>
+            <div class="border border-1 p-5 mb-5">
+                <h3>Dialog boxes</h3>
                 <hr>
+                <p class="lead">Information dialog box</p>
+                <script src="https://gist.github.com/srisar/11788139b5be6e87be0ce8735cf6d08a.js"></script>
+                <button class="btn btn-primary" id="btnInfoDialog">Open info dialog basic</button>
+                <button class="btn btn-primary" id="btnInfoDialogMore">Open info w/ title</button>
+                <button class="btn btn-primary" id="btnInfoDialogCallback">Open info w/ callback</button>
 
-                <div class="my-2 text-center">
-                    <button class="btn btn-primary" id="btnSuccessDialog">Open Success Message</button>
-                    <!--                    <button class="btn btn-primary" onclick="onErrorMessage()">Open Error Message</button>-->
+                <hr>
+                <p class="lead">Success dialog boxes</p>
+                <p>Success dialog box is as same as information dialog, except it has green border and style
+                    is drawn from bootstrap's default success color.</p>
+
+                <script src="https://gist.github.com/srisar/7f8e1405ff3be419b097e019070997d9.js"></script>
+                <button class="btn btn-success" id="btnSuccessDialog">Open success dialog</button>
+
+                <hr>
+                <p class="lead">Error dialog boxes</p>
+                <p>Error dialog box is as same as information dialog, except it has red border and style
+                    is drawn from bootstrap's default danger color.</p>
+
+                <script src="https://gist.github.com/srisar/d4e775429cbf0d4a66a4164429416fa8.js"></script>
+                <button class="btn btn-danger" id="btnErrorDialog">Open error dialog</button>
+
+            </div>
+
+            <div class="border border-1 p-5">
+                <h3>Prompt boxes</h3>
+                <hr>
+                <p>Prompt dialog boxes provide various ways to get input from dialog box.</p>
+                <p>Prompt dialog boxes provide callbacks on both ok and cancel scenarios. Unlike the dialog box counter
+                    parts, they cannot be dismissed clicking outside the modal area.</p>
+
+                <p class="text-center">
+                    <button class="btn btn-primary" id="btnTextInputBasic">Open basic text input prompt</button>
+                </p>
+
+                <p class="text-center">All available input dialog boxes</p>
+                <p class="text-center">
+                    <button class="btn btn-primary" id="btnTextInput">Open text input prompt</button>
+                    <button class="btn btn-primary" id="btnMultiTextInput">Open multi-line input</button>
+                    <button class="btn btn-primary" id="btnNumberInput">Open number input</button>
+                    <button class="btn btn-primary" id="btnDateInput">Open date input</button>
+                </p>
+
+                <div class="lead text-center mb-4" id="output" style="white-space: pre-line
+">
+                    Input from the dialog boxes will appear here.
                 </div>
 
-                <div class="my-2 text-center">
-                    <!--                    <button class="btn btn-secondary" onclick="onTextPrompt()">Open text input</button>-->
-                    <!--                    <button class="btn btn-secondary" onclick="onTextAreaPrompt()">Open multiline input</button>-->
-                    <!--                    <button class="btn btn-secondary" onclick="onDatePrompt()">Open date input</button>-->
-                    <!--                    <button class="btn btn-secondary" onclick="onNumberPrompt()">Open number input</button>-->
-                </div>
-
-                <div class="my-3 text-center fw-bold" style="white-space: pre-line
-" v-if="callBackOutput">
-                    {{ callBackOutput }}
-                </div>
+                <script src="https://gist.github.com/srisar/23955d5a0fc3fd643cc587ba28bac724.js"></script>
 
             </div>
 
@@ -53,6 +91,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 
-<script src="index.ef4da000.js"></script>
+<script src="index.8cc4a7f9.js"></script>
 </body>
 </html>

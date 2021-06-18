@@ -2,9 +2,10 @@
   "name": "bsdialog",
   "version": "1.0.0",
   "description": "Bootstrap based dialog boxes for easy popups and inputs",
-  "main": "src/index.js",
+  "main": "src/bs-dialogs.js",
   "scripts": {
-    "build": "uglifyjs src/bs-dialogs.js -m -c --source-map includeSources -o dist/bs-dialogs.min.js"
+    "build": "uglifyjs src/bs-dialogs.js -m -c --source-map includeSources -o dist/bs-dialogs.min.js",
+    "parcel": "parcel docs_src/index.html --dist-dir docs"
   },
   "author": "Srisaravana Manicaraja",
   "license": "ISC",

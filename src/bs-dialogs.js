@@ -127,7 +127,25 @@ class CustomPrompt {
 
 
 /**
- * Success message box
+ * Information dialog box
+ * @param params
+ * @param closeCallback
+ */
+export function infoDialog(params = {}, closeCallback) {
+
+    params.title = params.title ?? "Information";
+
+    new AlertDialog({
+        message: params.message,
+        title: params.title,
+        borderClass: "border-primary",
+        closeButtonText: "Ok",
+        titleTextColor: "text-primary"
+    }, closeCallback);
+}
+
+/**
+ * Success dialog box
  * @param params
  * @param closeCallback
  */
@@ -145,7 +163,7 @@ export function successDialog(params = {}, closeCallback) {
 }
 
 /**
- * Error message box
+ * Error dialog box
  * @param params
  * @param closeCallback
  */
