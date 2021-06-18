@@ -3,6 +3,9 @@
 A small library to create modal windows for notification and inputs using Bootstrap 5 modal. It automatically handles
 DOM manipulation and provides callbacks for capturing user events.
 
+**NOTE: This library uses Bootstrap 5's modal windows, which doesn't require jQuery, 
+but Bootstrap's js file must be loaded before loading bs-dialog.** 
+
 ## Dialogs
 
 + Success dialog
@@ -77,6 +80,43 @@ textPrompt({
     title: "Name please..."
 }, function (data) {
     // ok callback
+});
+
+
+```
+
+### To show other input fields
+
+```javascript
+
+/* multi-line text input */
+textAreaPrompt({
+    message: "What is your address?",
+    title: "Address"
+}, function (data) {
+    // ok callback
+});
+
+/* date input */
+datePrompt({
+    message: "When is your birthday?",
+    title: "Date of birth"
+}, function (data) {
+    // ok callback
+});
+
+/* number input */
+numberPrompt({
+    message: "What is the meaning of life?",
+    title: "Supreme question"
+}, function (data) {
+
+    if (data === "42") {
+        console.log("You are absolutely right!");
+    } else {
+        console.log("You may need a hitchhiker's guide, after all");
+    }
+
 });
 
 
