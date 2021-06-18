@@ -1,10 +1,11 @@
-import {successDialog} from "../dist/bs-dialogs.min";
+import {successDialog, errorDialog} from "../dist/bs-dialogs.min";
 
-document.getElementById("btn").addEventListener("click", function () {
+
+document.getElementById("btnSuccessDialog").addEventListener("click", () => {
 
     successDialog({
-        message: "hello world!",
-        title: "Hi"
+        message: "hello",
+        title: "title..."
     })
 
 });

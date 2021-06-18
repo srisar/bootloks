@@ -10,6 +10,7 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+
 </head>
 <body>
 
@@ -19,7 +20,27 @@
 
             <h1 class="text-center">Hello, world!</h1>
 
-            <button class="btn btn-primary" id="btn">Click me</button>
+            <div>
+                <h3>Testing messagebox fly outs</h3>
+                <hr>
+
+                <div class="my-2 text-center">
+                    <button class="btn btn-primary" id="btnSuccessDialog">Open Success Message</button>
+<!--                    <button class="btn btn-primary" onclick="onErrorMessage()">Open Error Message</button>-->
+                </div>
+
+                <div class="my-2 text-center">
+<!--                    <button class="btn btn-secondary" onclick="onTextPrompt()">Open text input</button>-->
+<!--                    <button class="btn btn-secondary" onclick="onTextAreaPrompt()">Open multiline input</button>-->
+<!--                    <button class="btn btn-secondary" onclick="onDatePrompt()">Open date input</button>-->
+<!--                    <button class="btn btn-secondary" onclick="onNumberPrompt()">Open number input</button>-->
+                </div>
+
+                <div class="my-3 text-center fw-bold" style="white-space: pre-line" v-if="callBackOutput">
+                    {{ callBackOutput }}
+                </div>
+
+            </div>
 
         </div>
     </div>
@@ -33,7 +54,7 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
-<script src="index.js"></script>
 
+<script src="./index.js"></script>
 </body>
 </html>

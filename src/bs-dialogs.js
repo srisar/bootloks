@@ -51,23 +51,21 @@ class AlertDialog {
         let element = document.createElement("div");
         element.id = "ss-modal-dialog-container";
 
-        element.innerHTML = `
-                <div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
-                  <div class="modal-dialog">
-                    <div class="modal-content border ${params.borderClass}">
-                      <div class="modal-header">
-                        <p class="modal-title text-uppercase fw-bold ${params.titleTextColor}">${params.title}</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        ${params.message}
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${params.closeButtonText}</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>`
+        element.innerHTML =
+            `<div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >` +
+            `<div class="modal-dialog">` +
+            `<div class="modal-content border ${params.borderClass}">` +
+            `<div class="modal-header">` +
+            `<p class="modal-title text-uppercase fw-bold ${params.titleTextColor}">${params.title}</p>` +
+            `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>` +
+            `</div>` +
+            `<div class="modal-body">${params.message}</div>` +
+            `<div class="modal-footer">` +
+            `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${params.closeButtonText}</button>` +
+            `</div>` +
+            `</div>` +
+            `</div>` +
+            `</div>`;
 
         document.body.appendChild(element);
 
@@ -103,25 +101,25 @@ class CustomPrompt {
         if (params.fieldType === "date") inputField = "<input type='date' class='form-control' id='ss-prompt-input-value'>";
         if (params.fieldType === "number") inputField = "<input type='number' class='form-control' id='ss-prompt-input-value'>";
 
-        element.innerHTML = `
-                <div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <p class="modal-title text-uppercase fw-bold">${params.title}</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        ${params.message}
-                         ${inputField}
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="ss-button-prompt-ok">Ok</button>
-                        <button type="button" class="btn btn-secondary" id="ss-button-prompt-cancel" data-bs-dismiss="modal">Cancel</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>`
+        element.innerHTML =
+            `<div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true">` +
+            `<div class="modal-dialog">` +
+            `<div class="modal-content">` +
+            `<div class="modal-header">` +
+            `<p class="modal-title text-uppercase fw-bold">${params.title}</p>` +
+            `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>` +
+            `</div>` +
+            `<div class="modal-body">` +
+            `${params.message}` +
+            `${inputField}` +
+            `</div>` +
+            ` <div class="modal-footer">` +
+            `<button type="button" class="btn btn-success" id="ss-button-prompt-ok">Ok</button>` +
+            `<button type="button" class="btn btn-secondary" id="ss-button-prompt-cancel" data-bs-dismiss="modal">Cancel</button>` +
+            `</div>` +
+            `</div>` +
+            `</div>` +
+            `</div>`;
 
         generateModal(element, params, okButtonCallback, cancelButtonCallback);
     }
