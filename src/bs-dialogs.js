@@ -11,25 +11,36 @@ function generateModal(element, params, okButtonCallback, cancelButtonCallback) 
     let myPromptDialog = new bootstrap.Modal(document.getElementById(params.id), {backdrop: "static"});
     myPromptDialog.show();
 
-    document.addEventListener("click", (e) => {
+
+    function okEvent(e) {
         if (e.target && e.target.id === "ss-button-prompt-ok") {
             let value = document.getElementById("ss-prompt-input-value").value;
             okButtonCallback(value);
-
             myPromptDialog.hide();
         }
-    });
+    }
 
-    document.addEventListener("click", (e) => {
+    function cancelEvent(e) {
         if (e.target && e.target.id === "ss-button-prompt-cancel") {
             if (cancelButtonCallback !== undefined) {
                 cancelButtonCallback();
             }
             myPromptDialog.hide();
         }
-    });
+    }
+
+
+    document.addEventListener("click", okEvent);
+    document.addEventListener("click", cancelEvent);
 
     document.getElementById(params.id).addEventListener("hide.bs.modal", function () {
+        document.removeEventListener("click", okEvent);
+        document.removeEventListener("click", cancelEvent);
+
+        let dom = document.getElementById(params.id);
+        const modal = bootstrap.Modal.getInstance(dom);
+        modal.dispose();
+
         document.getElementById("ss-modal-dialog-container").remove();
     })
 }
