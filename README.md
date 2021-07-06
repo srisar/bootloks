@@ -6,7 +6,7 @@ DOM manipulation and provides callbacks for capturing user events.
 **NOTE: This library uses Bootstrap 5's modal windows, which doesn't require jQuery, but Bootstrap's js file must be
 loaded before loading bs-dialog.**
 
-demo site is available here https://srisar.github.io/bs-dialog
+demo site is available here https://srisar.github.io/bootloks
 
 ## Dialogs
 
