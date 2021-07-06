@@ -1,22 +1,22 @@
-import * as bsDialog from "../../src/bs-dialogs";
+import * as blk from "../../src/bootloks";
 
 let output = document.getElementById("output");
 
 document.getElementById("btnInfoDialog").addEventListener("click", () => {
-    bsDialog.infoDialog({
+    blk.infoDialog({
         message: "This is the message",
     });
 });
 
 document.getElementById("btnInfoDialogMore").addEventListener("click", () => {
-    bsDialog.infoDialog({
+    blk.infoDialog({
         message: "This is the message",
         title: "Custom title comes here 🚀"
     });
 });
 
 document.getElementById("btnInfoDialogCallback").addEventListener("click", () => {
-    bsDialog.infoDialog({
+    blk.infoDialog({
         message: "This is the message",
         title: "Custom title comes here 🚀"
     }, function () {
@@ -26,7 +26,7 @@ document.getElementById("btnInfoDialogCallback").addEventListener("click", () =>
 
 document.getElementById("btnSuccessDialog").addEventListener("click", () => {
 
-    bsDialog.successDialog({
+    blk.successDialog({
         message: "Task successfully completed. <br> <span class='fw-bold'>You can now relax.</span>",
         title: "🚀 All done sire"
     }, function () {
@@ -37,7 +37,7 @@ document.getElementById("btnSuccessDialog").addEventListener("click", () => {
 
 document.getElementById("btnErrorDialog").addEventListener("click", () => {
 
-    bsDialog.errorDialog({
+    blk.errorDialog({
         message: "Task failed. I am sorry I have let you down.",
         title: "Oopsies... Can do nothin'"
     }, function () {
@@ -48,7 +48,7 @@ document.getElementById("btnErrorDialog").addEventListener("click", () => {
 
 document.getElementById("btnTextInputBasic").addEventListener("click", () => {
 
-    bsDialog.textPrompt({
+    blk.textPrompt({
         message: "Care to share your favorite color? Mine is <span class='text-danger'>red.</span>",
     }, function (data) {
 
@@ -63,7 +63,7 @@ document.getElementById("btnTextInputBasic").addEventListener("click", () => {
 
 document.getElementById("btnTextInput").addEventListener("click", () => {
 
-    bsDialog.textPrompt({
+    blk.textPrompt({
         message: "What is your favorite color?",
         title: "Color please... ⛄"
     }, function (data) {
@@ -81,7 +81,7 @@ document.getElementById("btnTextInput").addEventListener("click", () => {
 
 document.getElementById("btnMultiTextInput").addEventListener("click", () => {
 
-    bsDialog.textAreaPrompt({
+    blk.textAreaPrompt({
         message: "Can you write something in two lines?",
         title: "Haiku, Might it be?"
     }, function (data) {
@@ -99,7 +99,7 @@ document.getElementById("btnMultiTextInput").addEventListener("click", () => {
 
 document.getElementById("btnNumberInput").addEventListener("click", () => {
 
-    bsDialog.numberPrompt({
+    blk.numberPrompt({
         message: "What is the meaning of life?",
         title: "Do you need a guide to galaxy?"
     }, function (data) {
@@ -118,7 +118,7 @@ document.getElementById("btnNumberInput").addEventListener("click", () => {
 
 document.getElementById("btnDateInput").addEventListener("click", () => {
 
-    bsDialog.datePrompt({
+    blk.datePrompt({
         message: "Choose a random date",
         title: "Date mystery"
     }, function (data) {
@@ -126,5 +126,27 @@ document.getElementById("btnDateInput").addEventListener("click", () => {
     }, function () {
         output.innerText = "You cancelled the prompt 😢";
     });
+
+});
+
+document.getElementById("btnDrpDateField").addEventListener("click", () => {
+
+    blk.drpDatePrompt({message: "Choose a date"}, data => {
+        let output = document.getElementById("drp-output")
+        output.innerText = data;
+    });
+
+});
+
+document.getElementById("btnDrpDateRangeField").addEventListener("click", () => {
+
+    blk.drpDateRangePrompt({
+            message: "Choose a date",
+            startDate: "2020-05-10"
+        },
+        data => {
+            let output = document.getElementById("drp-output")
+            output.innerText = data;
+        });
 
 });

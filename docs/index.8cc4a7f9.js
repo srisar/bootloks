@@ -442,21 +442,21 @@ id) /*: string*/
 }
 
 },{}],"7fPzZ":[function(require,module,exports) {
-var _srcBsDialogs = require("../../src/bs-dialogs");
+var _srcBootloks = require("../../src/bootloks");
 let output = document.getElementById("output");
 document.getElementById("btnInfoDialog").addEventListener("click", () => {
-  _srcBsDialogs.infoDialog({
+  _srcBootloks.infoDialog({
     message: "This is the message"
   });
 });
 document.getElementById("btnInfoDialogMore").addEventListener("click", () => {
-  _srcBsDialogs.infoDialog({
+  _srcBootloks.infoDialog({
     message: "This is the message",
     title: "Custom title comes here 🚀"
   });
 });
 document.getElementById("btnInfoDialogCallback").addEventListener("click", () => {
-  _srcBsDialogs.infoDialog({
+  _srcBootloks.infoDialog({
     message: "This is the message",
     title: "Custom title comes here 🚀"
   }, function () {
@@ -464,7 +464,7 @@ document.getElementById("btnInfoDialogCallback").addEventListener("click", () =>
   });
 });
 document.getElementById("btnSuccessDialog").addEventListener("click", () => {
-  _srcBsDialogs.successDialog({
+  _srcBootloks.successDialog({
     message: "Task successfully completed. <br> <span class='fw-bold'>You can now relax.</span>",
     title: "🚀 All done sire"
   }, function () {
@@ -472,7 +472,7 @@ document.getElementById("btnSuccessDialog").addEventListener("click", () => {
   });
 });
 document.getElementById("btnErrorDialog").addEventListener("click", () => {
-  _srcBsDialogs.errorDialog({
+  _srcBootloks.errorDialog({
     message: "Task failed. I am sorry I have let you down.",
     title: "Oopsies... Can do nothin'"
   }, function () {
@@ -480,7 +480,7 @@ document.getElementById("btnErrorDialog").addEventListener("click", () => {
   });
 });
 document.getElementById("btnTextInputBasic").addEventListener("click", () => {
-  _srcBsDialogs.textPrompt({
+  _srcBootloks.textPrompt({
     message: "Care to share your favorite color? Mine is <span class='text-danger'>red.</span>"
   }, function (data) {
     /*make sure to sanitize the input data*/
@@ -491,7 +491,7 @@ document.getElementById("btnTextInputBasic").addEventListener("click", () => {
   });
 });
 document.getElementById("btnTextInput").addEventListener("click", () => {
-  _srcBsDialogs.textPrompt({
+  _srcBootloks.textPrompt({
     message: "What is your favorite color?",
     title: "Color please... ⛄"
   }, function (data) {
@@ -505,7 +505,7 @@ document.getElementById("btnTextInput").addEventListener("click", () => {
   });
 });
 document.getElementById("btnMultiTextInput").addEventListener("click", () => {
-  _srcBsDialogs.textAreaPrompt({
+  _srcBootloks.textAreaPrompt({
     message: "Can you write something in two lines?",
     title: "Haiku, Might it be?"
   }, function (data) {
@@ -519,7 +519,7 @@ document.getElementById("btnMultiTextInput").addEventListener("click", () => {
   });
 });
 document.getElementById("btnNumberInput").addEventListener("click", () => {
-  _srcBsDialogs.numberPrompt({
+  _srcBootloks.numberPrompt({
     message: "What is the meaning of life?",
     title: "Do you need a guide to galaxy?"
   }, function (data) {
@@ -533,7 +533,7 @@ document.getElementById("btnNumberInput").addEventListener("click", () => {
   });
 });
 document.getElementById("btnDateInput").addEventListener("click", () => {
-  _srcBsDialogs.datePrompt({
+  _srcBootloks.datePrompt({
     message: "Choose a random date",
     title: "Date mystery"
   }, function (data) {
@@ -542,8 +542,25 @@ document.getElementById("btnDateInput").addEventListener("click", () => {
     output.innerText = "You cancelled the prompt 😢";
   });
 });
+document.getElementById("btnDrpDateField").addEventListener("click", () => {
+  _srcBootloks.drpDatePrompt({
+    message: "Choose a date"
+  }, data => {
+    let output = document.getElementById("drp-output");
+    output.innerText = data;
+  });
+});
+document.getElementById("btnDrpDateRangeField").addEventListener("click", () => {
+  _srcBootloks.drpDateRangePrompt({
+    message: "Choose a date",
+    startDate: "2020-05-10"
+  }, data => {
+    let output = document.getElementById("drp-output");
+    output.innerText = data;
+  });
+});
 
-},{"../../src/bs-dialogs":"3YdnL"}],"3YdnL":[function(require,module,exports) {
+},{"../../src/bootloks":"7psb6"}],"7psb6":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "infoDialog", function () {
@@ -567,6 +584,12 @@ _parcelHelpers.export(exports, "datePrompt", function () {
 _parcelHelpers.export(exports, "numberPrompt", function () {
   return numberPrompt;
 });
+_parcelHelpers.export(exports, "drpDatePrompt", function () {
+  return drpDatePrompt;
+});
+_parcelHelpers.export(exports, "drpDateRangePrompt", function () {
+  return drpDateRangePrompt;
+});
 /**
 * Generates the modal window with given data and callbacks
 * @param element
@@ -580,26 +603,38 @@ function generateModal(element, params, okButtonCallback, cancelButtonCallback) 
     backdrop: "static"
   });
   myPromptDialog.show();
-  document.addEventListener("click", e => {
+  function okEvent(e) {
     if (e.target && e.target.id === "ss-button-prompt-ok") {
-      let value = document.getElementById("ss-prompt-input-value").value;
-      okButtonCallback(value);
+      let field = document.getElementById("ss-prompt-input-value");
+      /*check if it drp date-range field*/
+      if (field.classList.contains("drp-range-control")) {
+        let dates = field.value.split(" - ");
+        okButtonCallback(dates);
+      } else {
+        okButtonCallback(field.value);
+      }
       myPromptDialog.hide();
     }
-  });
-  document.addEventListener("click", e => {
+  }
+  function cancelEvent(e) {
     if (e.target && e.target.id === "ss-button-prompt-cancel") {
       if (cancelButtonCallback !== undefined) {
         cancelButtonCallback();
       }
       myPromptDialog.hide();
     }
-  });
-  document.getElementById(params.id).addEventListener("hide.bs.modal", function () {
+  }
+  document.addEventListener("click", okEvent);
+  document.addEventListener("click", cancelEvent);
+  document.getElementById(params.id).addEventListener("hidden.bs.modal", function () {
+    document.removeEventListener("click", okEvent);
+    document.removeEventListener("click", cancelEvent);
+    let dom = document.getElementById(params.id);
+    const modal = bootstrap.Modal.getInstance(dom);
+    modal.dispose();
     document.getElementById("ss-modal-dialog-container").remove();
   });
 }
-/*------------------------------------------------------------------------------------------------------------------------*/
 class AlertDialog {
   constructor(params = {
     message: "",
@@ -646,8 +681,10 @@ class CustomPrompt {
     /*types of fields*/
     let inputField = "<input type='text' class='form-control' id='ss-prompt-input-value'>";
     if (params.fieldType === "textarea") inputField = "<textarea rows='5' class='form-control' id='ss-prompt-input-value'></textarea>";
-    if (params.fieldType === "date") inputField = "<input type='date' class='form-control' id='ss-prompt-input-value'>";
     if (params.fieldType === "number") inputField = "<input type='number' class='form-control' id='ss-prompt-input-value'>";
+    if (params.fieldType === "date") inputField = "<input type='date' class='form-control' id='ss-prompt-input-value'>";
+    if (params.fieldType === "drp-date") inputField = "<input type='text' class='form-control drp-control' id='ss-prompt-input-value'>";
+    if (params.fieldType === "drp-date-range") inputField = "<input type='text' class='form-control drp-range-control' id='ss-prompt-input-value'>";
     element.innerHTML = `<div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true">` + `<div class="modal-dialog">` + `<div class="modal-content">` + `<div class="modal-header">` + `<p class="modal-title text-uppercase fw-bold">${params.title}</p>` + `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>` + `</div>` + `<div class="modal-body">` + `${params.message}` + `${inputField}` + `</div>` + ` <div class="modal-footer">` + `<button type="button" class="btn btn-success" id="ss-button-prompt-ok">Ok</button>` + `<button type="button" class="btn btn-secondary" id="ss-button-prompt-cancel" data-bs-dismiss="modal">Cancel</button>` + `</div>` + `</div>` + `</div>` + `</div>`;
     generateModal(element, params, okButtonCallback, cancelButtonCallback);
   }
@@ -709,6 +746,39 @@ function numberPrompt(params = {}, okCallback, cancelCallback) {
     title: params.title,
     fieldType: "number"
   }, okCallback, cancelCallback);
+}
+function drpDatePrompt(params = {}, okCallback, cancelCallback) {
+  new CustomPrompt({
+    message: params.message,
+    title: params.title,
+    fieldType: "drp-date"
+  }, okCallback, cancelCallback);
+  let sDate = params.startDate ?? moment().format("YYYY-MM-DD");
+  $(".drp-control").daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    startDate: sDate,
+    locale: {
+      format: "YYYY-MM-DD"
+    }
+  });
+}
+function drpDateRangePrompt(params = {}, okCallback, cancelCallback) {
+  new CustomPrompt({
+    message: params.message,
+    title: params.title,
+    fieldType: "drp-date-range"
+  }, okCallback, cancelCallback);
+  let sDate = params.startDate ?? moment().format("YYYY-MM-DD");
+  let eDate = params.endDate ?? moment().format("YYYY-MM-DD");
+  $(".drp-range-control").daterangepicker({
+    showDropdowns: true,
+    startDate: sDate,
+    endDate: eDate,
+    locale: {
+      format: "YYYY-MM-DD"
+    }
+  });
 }
 
 },{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {

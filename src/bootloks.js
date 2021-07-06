@@ -14,8 +14,17 @@ function generateModal(element, params, okButtonCallback, cancelButtonCallback) 
 
     function okEvent(e) {
         if (e.target && e.target.id === "ss-button-prompt-ok") {
-            let value = document.getElementById("ss-prompt-input-value").value;
-            okButtonCallback(value);
+
+            let field = document.getElementById("ss-prompt-input-value");
+
+            /* check if it drp date-range field */
+            if (field.classList.contains("drp-range-control")) {
+                let dates = field.value.split(" - ");
+                okButtonCallback(dates);
+            } else {
+                okButtonCallback(field.value);
+            }
+
             myPromptDialog.hide();
         }
     }
@@ -33,7 +42,7 @@ function generateModal(element, params, okButtonCallback, cancelButtonCallback) 
     document.addEventListener("click", okEvent);
     document.addEventListener("click", cancelEvent);
 
-    document.getElementById(params.id).addEventListener("hide.bs.modal", function () {
+    document.getElementById(params.id).addEventListener("hidden.bs.modal", function () {
         document.removeEventListener("click", okEvent);
         document.removeEventListener("click", cancelEvent);
 
@@ -45,7 +54,6 @@ function generateModal(element, params, okButtonCallback, cancelButtonCallback) 
     })
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------ */
 
 class AlertDialog {
 
@@ -109,8 +117,10 @@ class CustomPrompt {
         let inputField = "<input type='text' class='form-control' id='ss-prompt-input-value'>";
 
         if (params.fieldType === "textarea") inputField = "<textarea rows='5' class='form-control' id='ss-prompt-input-value'></textarea>";
-        if (params.fieldType === "date") inputField = "<input type='date' class='form-control' id='ss-prompt-input-value'>";
         if (params.fieldType === "number") inputField = "<input type='number' class='form-control' id='ss-prompt-input-value'>";
+        if (params.fieldType === "date") inputField = "<input type='date' class='form-control' id='ss-prompt-input-value'>";
+        if (params.fieldType === "drp-date") inputField = "<input type='text' class='form-control drp-control' id='ss-prompt-input-value'>";
+        if (params.fieldType === "drp-date-range") inputField = "<input type='text' class='form-control drp-range-control' id='ss-prompt-input-value'>";
 
         element.innerHTML =
             `<div class="modal fade" id="${params.id}" tabindex="-1" aria-labelledby="" aria-hidden="true">` +
@@ -247,4 +257,45 @@ export function numberPrompt(params = {}, okCallback, cancelCallback) {
         title: params.title,
         fieldType: "number",
     }, okCallback, cancelCallback);
+}
+
+
+export function drpDatePrompt(params = {}, okCallback, cancelCallback) {
+
+    new CustomPrompt({
+        message: params.message,
+        title: params.title,
+        fieldType: "drp-date",
+    }, okCallback, cancelCallback);
+
+    let sDate = params.startDate ?? moment().format("YYYY-MM-DD");
+
+    $(".drp-control").daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        startDate: sDate,
+        locale: {
+            format: "YYYY-MM-DD"
+        }
+    });
+}
+
+export function drpDateRangePrompt(params = {}, okCallback, cancelCallback) {
+    new CustomPrompt({
+        message: params.message,
+        title: params.title,
+        fieldType: "drp-date-range",
+    }, okCallback, cancelCallback);
+
+    let sDate = params.startDate ?? moment().format("YYYY-MM-DD");
+    let eDate = params.endDate ?? moment().format("YYYY-MM-DD");
+
+    $(".drp-range-control").daterangepicker({
+        showDropdowns: true,
+        startDate: sDate,
+        endDate: eDate,
+        locale: {
+            format: "YYYY-MM-DD"
+        }
+    });
 }

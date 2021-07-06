@@ -4,7 +4,7 @@
   "description": "Bootstrap based dialog boxes for easy popups and inputs",
   "main": "src/bs-dialogs.js",
   "scripts": {
-    "build": "uglifyjs src/bs-dialogs.js -m -c --source-map includeSources -o dist/bs-dialogs.min.js",
+    "build": "terser src/bootloks.js --output dist/bootloks.min.js",
     "parcel": "parcel docs_src/index.html --dist-dir docs"
   },
   "author": "Srisaravana Manicaraja",

@@ -11,7 +11,13 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <title>BS-Dialogs</title>
+    <!-- date-range-picker dependencies -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+
+    <title>Bootloks - Bootstrap based modal windows</title>
     <style>body {
             font-family: 'Sen', sans-serif;
         }
@@ -23,7 +29,19 @@
     <div class="row">
         <div class="col">
 
-            <h1 class="text-center">BS-DIALOGS Demo</h1>
+            <div class="text-center mb-3">
+                <img src="/bootloks-icon.18d5a4b8.svg" alt="Bootloks">
+            </div>
+
+            <h1 class="text-center">Bootstrap based modal windows</h1>
+
+            <p>
+                A small library to create modal windows for notification and inputs using Bootstrap 5 modal. It
+                automatically handles DOM manipulation and provides callbacks for capturing user events.
+            </p>
+            <p class="fw-bold">NOTE: This library uses Bootstrap 5's modal windows, which doesn't require jQuery, but
+                Bootstrap's js
+                file must be loaded before loading Bootloks.</p>
 
             <div class="border border-1 p-5 mb-5">
                 <h3>Dialog boxes</h3>
@@ -52,7 +70,7 @@
 
             </div>
 
-            <div class="border border-1 p-5">
+            <div class="border border-1 p-5 mb-5">
                 <h3>Prompt boxes</h3>
                 <hr>
                 <p>Prompt dialog boxes provide various ways to get input from dialog box.</p>
@@ -80,6 +98,28 @@
 
             </div>
 
+            <div class="border border-1 p-5">
+                <h3>Custom Prompts / Daterangepicker fields</h3>
+                <hr>
+
+                <p>Date prompt with <a href="https://github.com/dangrossman/daterangepicker" target="_blank">daterangepicker</a>
+                    as the input field. This require daterangepicker as
+                    dependency and therefore all other dependencies daterangepicker depends on. (jQuery, moment)</p>
+
+                <p class="text-center">
+                    <button class="btn btn-primary" id="btnDrpDateField">Open date picker</button>
+                    <button class="btn btn-primary" id="btnDrpDateRangeField">Open date-range picker</button>
+                </p>
+
+                <div class="lead text-center mb-4" id="drp-output" style="white-space: pre-line
+">
+                    Input from the dialog boxes will appear here.
+                </div>
+
+                <script src="https://gist.github.com/srisar/7c722f4541309e150185fcc74d9b55ec.js"></script>
+
+            </div>
+
         </div>
     </div>
 </div>
@@ -91,6 +131,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 
-<script src="index.8cc4a7f9.js"></script>
+<script src="/index.8cc4a7f9.js"></script>
 </body>
 </html>
