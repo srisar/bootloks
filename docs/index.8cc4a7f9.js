@@ -757,6 +757,7 @@ function drpDatePrompt(params = {}, okCallback, cancelCallback) {
   $(".drp-control").daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
+    autoApply: true,
     startDate: sDate,
     locale: {
       format: "YYYY-MM-DD"
@@ -775,6 +776,7 @@ function drpDateRangePrompt(params = {}, okCallback, cancelCallback) {
     showDropdowns: true,
     startDate: sDate,
     endDate: eDate,
+    autoApply: true,
     locale: {
       format: "YYYY-MM-DD"
     }
